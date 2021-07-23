@@ -52,7 +52,7 @@ mutable struct KVStore
 end
 
 function KVStore(kv_type::Symbol = :local)
-  @assert kv_type ∈ (:local, :device, :dist_sync, :dist_device_sync, :dist_async)
+  @assert kv_type ∈ (:local, :device, :dist_sync, :dist_device_sync, :dist_async, :local_update_cpu, :local_allreduce_cpu, :local_allreduce_device)
   ref_hdr = Ref{MX_handle}(0)
   @mxcall(:MXKVStoreCreate, (char_p, Ref{MX_handle}), dump_mx_param(kv_type), ref_hdr)
   KVStore(MX_KVStoreHandle(ref_hdr[]))

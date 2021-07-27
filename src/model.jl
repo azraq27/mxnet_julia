@@ -617,7 +617,7 @@ function save_checkpoint(sym::SymbolicNode, arg_params::Dict{Symbol},
     Symbol("arg:$(x[1])") => x[2] for x in arg_params
   )
   if !isempty(aux_params)
-    merge!(save_dict, Dict(map((x) -> Symbol("aux:$(x[1])") => x[2], aux_params)))
+      merge!(save_dict, Dict([Symbol("aux:$k") => v for (k,v) in aux_params]))
   end
   save_filename = format("{1}-{2:04d}.params", prefix, epoch)
   save(save_filename, save_dict)
